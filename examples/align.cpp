@@ -108,10 +108,10 @@ void drawRectOfTemplate(cv::Mat &img, const ia::Warp<WarpType, Scalar> &w, cv::S
     PointType c2 = w(PointType(Scalar(0.5) + tplSize.width, Scalar(0.5) + tplSize.height));
     PointType c3 = w(PointType(Scalar(0.5), Scalar(0.5) + tplSize.height));
     
-    cv::line(img, toP(c0), toP(c1), color, 1, CV_AA);
-    cv::line(img, toP(c1), toP(c2), color, 1, CV_AA);
-    cv::line(img, toP(c2), toP(c3), color, 1, CV_AA);
-    cv::line(img, toP(c3), toP(c0), color, 1, CV_AA);
+    cv::line(img, toP(c0), toP(c1), color, 1, cv::LINE_AA);
+    cv::line(img, toP(c1), toP(c2), color, 1, cv::LINE_AA);
+    cv::line(img, toP(c2), toP(c3), color, 1, cv::LINE_AA);
+    cv::line(img, toP(c3), toP(c0), color, 1, cv::LINE_AA);
 }
 
 int main(int argc, char **argv)
@@ -137,7 +137,7 @@ int main(int argc, char **argv)
         cv::randu(target, cv::Scalar::all(0), cv::Scalar::all(255));
         cv::blur(target, target, cv::Size(5,5));
     } else {
-        target = cv::imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);
+        target = cv::imread(argv[1], cv::IMREAD_GRAYSCALE);
     }
     
     cv::Mat tpl(target.size().height / 10, target.size().width / 10, CV_8UC1);
@@ -178,7 +178,7 @@ int main(int argc, char **argv)
         
         
         cv::Mat display;
-        cv::cvtColor(target, display, CV_GRAY2BGR);
+        cv::cvtColor(target, display, cv::COLOR_GRAY2BGR);
         drawRectOfTemplate(display, targetW, tpl.size(), cv::Scalar(0, 0, 255));
         
         cv::imshow("Template", tpl);
